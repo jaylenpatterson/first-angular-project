@@ -6,16 +6,20 @@ class="form-control"
 <input type="text"
 class="form-control"
 [(ngModel)]="serverName">
-<input type="text"
-class="form-control"
-[(ngModel)]="username">
-<p>{{ username }}</p>
 <button class="btn btn-primary" [disabled]="!allowNewServer"
 (click)="onCreateServer()">Add Server</button>
-<button class="btn btn-secondary" [disabled]="username === ''"
-(click)="onDeleteUsername()">Delete Username</button>
+<button class="btn btn-primary" [disabled]="!allowNewServer"
+(click)="onDisplayDetails()">Display Details</button>
 <!-- <p [innerText]="allowNewServer"></p> -->
 <!-- <p>{{ serverCreationStatus }}</p> -->
-<p *ngIf="">Server was created, servername is {{ serverName }}</p>
-<app-server></app-server>
-<app-server></app-server>
+<p *ngIf="serverCreated">Server was created, servername is {{ serverName }}</p>
+<p *ngIf="displayDetails">Secret password = "tuna"</p>
+<div
+*ngFor="let logItem of log; let i = index"
+[ngStyle]="{ backgroundColor: i >= 4 ? 'blue' : 'transparent'}" 
+[ngClass]="{
+  past5: i >= 4 
+}"> {{ logItem }}
+</div>
+
+<app-server *ngFor="let server of servers"></app-server>
